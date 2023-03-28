@@ -32,7 +32,7 @@ modules:
     build-commands:
       - jq '.build.linux.target="dir"' <<<$(<package.json) > package.json
       # Install npm dependencies
-      - npm install --offline
+      - npm install --offline --logs-dir="/app/share/"
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
       - |
@@ -42,14 +42,10 @@ modules:
       - cp -a dist/linux*unpacked /app/main
       # Install app wrapper
       - install -Dm755 -t /app/bin/ ../run.sh
-    subdir: main
     sources:
       - type: archive
         url: https://github.com/rn0x/Altaqwaa-Islamic-Desktop-Application/archive/refs/tags/v3.0.1.tar.gz
         sha256: 4827132f9570e3fb93d7d196d103800cfbfc23b01e502791b7c632b1d87fa8ec
-      # - type: dir
-      #   path: ..
-      #   dest: main
       - generated-sources.json
       # # Wrapper to launch the app
       # - type: script
